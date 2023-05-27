@@ -16,7 +16,7 @@ class RegistrationTest {
 
         open("http://localhost:9999/");
         $("[data-test-id='city'] input").setValue("Киров");
-        String validDate = getValidDate(3);
+        String validDate = getValidDate();
         $("input[placeholder='Дата встречи']").setValue(validDate);
         $("input[name='name']").setValue("Петров Василий");
         $("input[name='phone']").setValue("+71234567890");
@@ -28,11 +28,9 @@ class RegistrationTest {
                 .shouldHave(text("Встреча успешно забронирована на " + validDate));
     }
 
-    private String getValidDate(int daysToAdd) {
-        // Логика для получения даты, не ранее трех дней с текущей даты
-        // В данном примере просто добавляем указанное количество дней к текущей дате
+    private String getValidDate() {
         LocalDate currentDate = LocalDate.now();
-        LocalDate validDate = currentDate.plusDays(daysToAdd);
+        LocalDate validDate = currentDate.plusDays(3);
         return validDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 }
