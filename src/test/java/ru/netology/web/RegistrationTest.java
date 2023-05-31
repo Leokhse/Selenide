@@ -1,6 +1,7 @@
 package ru.netology.web;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
 
 
 import java.time.Duration;
@@ -15,9 +16,11 @@ class RegistrationTest {
     void shouldRegisterByAccountNumberDOMModification() {
 
         open("http://localhost:9999/");
+
         $("[data-test-id='city'] input").setValue("Киров");
         String validDate = getValidDate();
-        $("input[placeholder='Дата встречи']").setValue(validDate);
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(validDate);
         $("input[name='name']").setValue("Петров Василий");
         $("input[name='phone']").setValue("+71234567890");
         $("input[name='agreement']").parent().click();
